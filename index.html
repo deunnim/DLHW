@@ -4,90 +4,60 @@
 <head>
     <title>My Own English Learning App</title>
 
+    <!-- CSS: Change how the app looks -->
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial;
             text-align: center;
             margin: 100px;
-            background-color: #fff4e6;
-        }
-
-        h1 {
-            color: #ff7f50;
-        }
-
-        p {
-            font-size: 24px;
-            color: #444;
         }
 
         button {
             font-size: 20px;
-            padding: 12px 25px;
-            margin: 8px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-        }
-
-        .correct {
-            background-color: #90ee90;
-        }
-
-        .wrong1 {
-            background-color: #87ceeb;
-        }
-
-        .wrong2 {
-            background-color: #dda0dd;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-
-        #feedback {
-            margin-top: 30px;
-            font-size: 22px;
+            padding: 12px;
+            margin: 5px;
+            background-color: skyblue;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>🌟 Vocabulary Quiz 🌟</h1>
+    <!-- HTML: Change what learners see -->
 
-    <p>What does <b>"give up"</b> mean?</p>
+    <h1>Vocabulary Quiz</h1>
 
-    <button class="correct" onclick="checkAnswer('quit')">
-        Quit
+    <p>What does "look after" mean?</p>
+
+    <button onclick="checkAnswer('take care of')">
+        Take care of
     </button>
 
-    <button class="wrong1" onclick="checkAnswer('start')">
-        Start
+    <button onclick="checkAnswer('look at')">
+        Look at
     </button>
 
-    <button class="wrong2" onclick="checkAnswer('carry')">
-        Carry
+    <button onclick="checkAnswer('run away')">
+        Run away
     </button>
 
     <h3 id="feedback"></h3>
 
 
+    <!-- JavaScript: Change what happens -->
+
     <script>
 
         function checkAnswer(answer) {
 
-            if (answer === "quit") {
+            if (answer === "take care of") {
                 document.getElementById("feedback").innerText =
-                    "🎉 Correct! Well done!";
-                document.getElementById("feedback").style.color = "green";
+                    "Correct! Well done!";
             }
 
             else {
                 document.getElementById("feedback").innerText =
-                    "❌ Incorrect. The answer is Quit.";
-                document.getElementById("feedback").style.color = "red";
+                    "Incorrect. The answer is Take care of.";
             }
 
         }
