@@ -1,68 +1,821 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>My Own English Learning App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- CSS: Change how the app looks -->
+    <title>Pixel Pet Vocabulary Game</title>
+
     <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            margin: 100px;
+        * {
+            box-sizing: border-box;
         }
 
-        button {
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-color: #b8e0d2;
+            font-family: "Courier New", monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Main Game */
+        .game {
+            width: 850px;
+            max-width: 95%;
+            background-color: #fff8dc;
+            border: 6px solid #493548;
+            box-shadow: 10px 10px 0px #493548;
+            padding: 25px;
+            text-align: center;
+        }
+
+        /* Title */
+        .title {
+            font-size: 34px;
+            color: #ff6f91;
+            text-shadow: 3px 3px 0px #493548;
+            margin: 5px 0 10px;
+        }
+
+        .subtitle {
+            color: #493548;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        /* Progress */
+        .progress-area {
+            margin: 15px auto;
+            max-width: 600px;
+        }
+
+        .progress-text {
+            font-size: 16px;
+            margin-bottom: 7px;
+            color: #493548;
+        }
+
+        .progress-bar {
+            height: 25px;
+            background-color: #ddd;
+            border: 4px solid #493548;
+            padding: 3px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 20%;
+            background-color: #ff9f1c;
+            transition: width 0.4s;
+        }
+
+        /* Pet Area */
+        .pet-area {
+            background-color: #dff6ff;
+            border: 5px solid #493548;
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            position: relative;
+        }
+
+        .pet-title {
+            font-size: 17px;
+            color: #493548;
+            margin-bottom: 5px;
+        }
+
+        .pet {
+            position: relative;
+            width: 220px;
+            height: 230px;
+            margin: auto;
+        }
+
+        /* Pixel Bunny */
+        .ears {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 70px;
+        }
+
+        .ear {
+            position: absolute;
+            width: 40px;
+            height: 75px;
+            background-color: #f7c8d8;
+            border: 5px solid #493548;
+        }
+
+        .ear.left {
+            left: 15px;
+            transform: rotate(-12deg);
+        }
+
+        .ear.right {
+            right: 15px;
+            transform: rotate(12deg);
+        }
+
+        .head {
+            position: absolute;
+            width: 150px;
+            height: 130px;
+            background-color: #f7c8d8;
+            border: 5px solid #493548;
+            border-radius: 45%;
+            left: 35px;
+            top: 55px;
+        }
+
+        .eye {
+            position: absolute;
+            width: 12px;
+            height: 18px;
+            background-color: #493548;
+            top: 45px;
+        }
+
+        .eye.left {
+            left: 38px;
+        }
+
+        .eye.right {
+            right: 38px;
+        }
+
+        .nose {
+            position: absolute;
+            width: 14px;
+            height: 10px;
+            background-color: #ff6f91;
+            left: 63px;
+            top: 70px;
+        }
+
+        .mouth {
+            position: absolute;
+            width: 30px;
+            height: 10px;
+            border-bottom: 4px solid #493548;
+            left: 55px;
+            top: 82px;
+        }
+
+        /* Clothes */
+        .shirt {
+            position: absolute;
+            width: 110px;
+            height: 65px;
+            left: 55px;
+            top: 145px;
+            background-color: #ff9f1c;
+            border: 5px solid #493548;
+            display: none;
+        }
+
+        .hat {
+            position: absolute;
+            width: 115px;
+            height: 35px;
+            background-color: #6c63ff;
+            border: 5px solid #493548;
+            left: 52px;
+            top: 40px;
+            display: none;
+            z-index: 5;
+        }
+
+        .hat-top {
+            position: absolute;
+            width: 65px;
+            height: 35px;
+            background-color: #6c63ff;
+            border: 5px solid #493548;
+            left: 78px;
+            top: 10px;
+            display: none;
+            z-index: 5;
+        }
+
+        .glasses {
+            position: absolute;
+            width: 105px;
+            height: 35px;
+            left: 58px;
+            top: 95px;
+            display: none;
+            z-index: 5;
+        }
+
+        .glass {
+            position: absolute;
+            width: 38px;
+            height: 28px;
+            border: 5px solid #493548;
+            background-color: #b8e0d2;
+        }
+
+        .glass.left {
+            left: 0;
+        }
+
+        .glass.right {
+            right: 0;
+        }
+
+        .scarf {
+            position: absolute;
+            width: 125px;
+            height: 25px;
+            left: 48px;
+            top: 135px;
+            background-color: #ff6f91;
+            border: 5px solid #493548;
+            display: none;
+            z-index: 4;
+        }
+
+        .bag {
+            position: absolute;
+            width: 35px;
+            height: 45px;
+            background-color: #8ac926;
+            border: 5px solid #493548;
+            left: 25px;
+            top: 150px;
+            display: none;
+        }
+
+        /* Question */
+        .question-box {
+            background-color: white;
+            border: 5px solid #493548;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 650px;
+        }
+
+        .question-number {
+            color: #ff6f91;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .word {
+            font-size: 32px;
+            color: #493548;
+            margin: 12px 0;
+        }
+
+        .instruction {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* Answer Buttons */
+        .answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .answer {
+            background-color: #ffe066;
+            border: 4px solid #493548;
+            padding: 14px 10px;
+            font-family: "Courier New", monospace;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #493548;
+            transition: 0.1s;
+        }
+
+        .answer:nth-child(2) {
+            background-color: #a8dadc;
+        }
+
+        .answer:nth-child(3) {
+            background-color: #ffadad;
+        }
+
+        .answer:nth-child(4) {
+            background-color: #cdb4db;
+        }
+
+        .answer:nth-child(5) {
+            background-color: #bde0fe;
+        }
+
+        .answer:hover {
+            transform: translate(3px, 3px);
+            box-shadow: 1px 1px 0px #493548;
+        }
+
+        .answer:disabled {
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        /* Feedback */
+        .feedback {
+            min-height: 35px;
+            margin: 18px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: #4caf50;
+        }
+
+        .wrong {
+            color: #e63946;
+        }
+
+        /* Start / Restart */
+        .game-button {
+            background-color: #ff6f91;
+            color: white;
+            border: 5px solid #493548;
+            padding: 14px 35px;
+            font-family: "Courier New", monospace;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 5px 5px 0px #493548;
+        }
+
+        .game-button:hover {
+            transform: translate(3px, 3px);
+            box-shadow: 2px 2px 0px #493548;
+        }
+
+        /* Ending */
+        .ending {
+            display: none;
+        }
+
+        .ending h2 {
+            color: #ff6f91;
+            font-size: 30px;
+        }
+
+        .reward {
             font-size: 20px;
-            padding: 12px;
-            margin: 5px;
-            background-color: skyblue;
+            color: #493548;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                font-size: 25px;
+            }
+
+            .answers {
+                grid-template-columns: 1fr;
+            }
+
+            .game {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 
+
 <body>
 
-    <!-- HTML: Change what learners see -->
+<div class="game">
 
-    <h1>Vocabulary Quiz</h1>
+    <h1 class="title">🐰 PIXEL PET QUIZ 🐰</h1>
 
-    <p>What does "look after" mean?</p>
-
-    <button onclick="checkAnswer('take care of')">
-        Take care of
-    </button>
-
-    <button onclick="checkAnswer('look at')">
-        Look at
-    </button>
-
-    <button onclick="checkAnswer('run away')">
-        Run away
-    </button>
-
-    <h3 id="feedback"></h3>
+    <div class="subtitle">
+        Learn vocabulary & dress up your pet!
+    </div>
 
 
-    <!-- JavaScript: Change what happens -->
+    <!-- Progress -->
+    <div class="progress-area">
 
-    <script>
+        <div class="progress-text" id="progressText">
+            Question 1 / 5
+        </div>
 
-        function checkAnswer(answer) {
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
 
-            if (answer === "take care of") {
-                document.getElementById("feedback").innerText =
-                    "Correct! Well done!";
-            }
+    </div>
 
-            else {
-                document.getElementById("feedback").innerText =
-                    "Incorrect. The answer is Take care of.";
-            }
+
+    <!-- Pet -->
+    <div class="pet-area">
+
+        <div class="pet-title">
+            ✨ YOUR PET ✨
+        </div>
+
+        <div class="pet">
+
+            <div class="ears">
+                <div class="ear left"></div>
+                <div class="ear right"></div>
+            </div>
+
+            <div class="head">
+
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+
+                <div class="nose"></div>
+                <div class="mouth"></div>
+
+            </div>
+
+            <!-- Clothes -->
+            <div class="shirt" id="shirt"></div>
+
+            <div class="hat" id="hat"></div>
+            <div class="hat-top" id="hatTop"></div>
+
+            <div class="glasses" id="glasses">
+                <div class="glass left"></div>
+                <div class="glass right"></div>
+            </div>
+
+            <div class="scarf" id="scarf"></div>
+
+            <div class="bag" id="bag"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Question -->
+    <div id="quiz">
+
+        <div class="question-box">
+
+            <div class="question-number" id="questionNumber">
+                QUESTION 1
+            </div>
+
+            <div class="word" id="word">
+                give up
+            </div>
+
+            <div class="instruction">
+                What does this word mean?
+            </div>
+
+        </div>
+
+
+        <!-- Answers -->
+        <div class="answers" id="answers">
+
+            <button class="answer" onclick="checkAnswer(0)">To continue</button>
+
+            <button class="answer" onclick="checkAnswer(1)">To quit</button>
+
+            <button class="answer" onclick="checkAnswer(2)">To arrive</button>
+
+            <button class="answer" onclick="checkAnswer(3)">To collect</button>
+
+            <button class="answer" onclick="checkAnswer(4)">To repair</button>
+
+        </div>
+
+
+        <div class="feedback" id="feedback"></div>
+
+    </div>
+
+
+    <!-- Ending -->
+    <div class="ending" id="ending">
+
+        <h2>🎉 AMAZING! 🎉</h2>
+
+        <div class="reward">
+            You learned all 5 words!<br><br>
+            🐰 Your pet is ready for adventure!<br>
+            👕🧢👓🧣👜<br><br>
+            Great job, vocabulary master!
+        </div>
+
+        <br>
+
+        <button class="game-button" onclick="restartGame()">
+            PLAY AGAIN
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =========================
+       VOCABULARY
+    ========================= */
+
+    const questions = [
+
+        {
+            word: "give up",
+            answers: [
+                "To continue",
+                "To quit",
+                "To arrive",
+                "To collect",
+                "To repair"
+            ],
+            correct: 1
+        },
+
+        {
+            word: "look after",
+            answers: [
+                "To take care of",
+                "To run away",
+                "To break",
+                "To forget",
+                "To borrow"
+            ],
+            correct: 0
+        },
+
+        {
+            word: "figure out",
+            answers: [
+                "To sleep",
+                "To clean",
+                "To understand or solve",
+                "To shout",
+                "To hide"
+            ],
+            correct: 2
+        },
+
+        {
+            word: "put off",
+            answers: [
+                "To turn on",
+                "To postpone",
+                "To pick up",
+                "To invite",
+                "To arrive"
+            ],
+            correct: 1
+        },
+
+        {
+            word: "run into",
+            answers: [
+                "To meet unexpectedly",
+                "To exercise",
+                "To escape",
+                "To build",
+                "To throw"
+            ],
+            correct: 0
+        }
+
+    ];
+
+
+    let currentQuestion = 0;
+
+
+    /* =========================
+       LOAD QUESTION
+    ========================= */
+
+    function loadQuestion() {
+
+        const q = questions[currentQuestion];
+
+        document.getElementById("questionNumber").innerText =
+            "QUESTION " + (currentQuestion + 1);
+
+        document.getElementById("word").innerText =
+            q.word;
+
+        document.getElementById("progressText").innerText =
+            "Question " + (currentQuestion + 1) + " / 5";
+
+        document.getElementById("progressFill").style.width =
+            ((currentQuestion + 1) * 20) + "%";
+
+
+        const buttons =
+            document.querySelectorAll(".answer");
+
+
+        buttons.forEach(function(button, index) {
+
+            button.innerText =
+                q.answers[index];
+
+            button.disabled = false;
+
+        });
+
+
+        document.getElementById("feedback").innerText = "";
+
+    }
+
+
+    /* =========================
+       CHECK ANSWER
+    ========================= */
+
+    function checkAnswer(selected) {
+
+        const q = questions[currentQuestion];
+
+        const buttons =
+            document.querySelectorAll(".answer");
+
+
+        buttons.forEach(function(button) {
+            button.disabled = true;
+        });
+
+
+        if (selected === q.correct) {
+
+            document.getElementById("feedback").innerText =
+                "🎉 Correct! Your pet got a new item!";
+
+            document.getElementById("feedback").className =
+                "feedback correct";
+
+
+            /* Give clothing item */
+
+            giveItem(currentQuestion);
+
+
+            setTimeout(function() {
+
+                currentQuestion++;
+
+                if (currentQuestion < questions.length) {
+
+                    loadQuestion();
+
+                } else {
+
+                    finishGame();
+
+                }
+
+            }, 1200);
+
+
+        } else {
+
+            document.getElementById("feedback").innerText =
+                "💭 Not quite! Try the next one!";
+
+            document.getElementById("feedback").className =
+                "feedback wrong";
+
+
+            setTimeout(function() {
+
+                buttons.forEach(function(button) {
+                    button.disabled = false;
+                });
+
+            }, 700);
 
         }
 
-    </script>
+    }
+
+
+    /* =========================
+       GIVE PET ITEM
+    ========================= */
+
+    function giveItem(number) {
+
+        if (number === 0) {
+
+            document.getElementById("shirt")
+                .style.display = "block";
+
+        }
+
+        if (number === 1) {
+
+            document.getElementById("hat")
+                .style.display = "block";
+
+            document.getElementById("hatTop")
+                .style.display = "block";
+
+        }
+
+        if (number === 2) {
+
+            document.getElementById("glasses")
+                .style.display = "block";
+
+        }
+
+        if (number === 3) {
+
+            document.getElementById("scarf")
+                .style.display = "block";
+
+        }
+
+        if (number === 4) {
+
+            document.getElementById("bag")
+                .style.display = "block";
+
+        }
+
+    }
+
+
+    /* =========================
+       FINISH
+    ========================= */
+
+    function finishGame() {
+
+        document.getElementById("quiz")
+            .style.display = "none";
+
+        document.getElementById("ending")
+            .style.display = "block";
+
+    }
+
+
+    /* =========================
+       RESTART
+    ========================= */
+
+    function restartGame() {
+
+        currentQuestion = 0;
+
+        document.getElementById("quiz")
+            .style.display = "block";
+
+        document.getElementById("ending")
+            .style.display = "none";
+
+
+        document.getElementById("shirt")
+            .style.display = "none";
+
+        document.getElementById("hat")
+            .style.display = "none";
+
+        document.getElementById("hatTop")
+            .style.display = "none";
+
+        document.getElementById("glasses")
+            .style.display = "none";
+
+        document.getElementById("scarf")
+            .style.display = "none";
+
+        document.getElementById("bag")
+            .style.display = "none";
+
+
+        loadQuestion();
+
+    }
+
+
+    /* Start */
+    loadQuestion();
+
+</script>
 
 </body>
 </html>
