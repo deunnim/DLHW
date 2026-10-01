@@ -2,62 +2,92 @@
 <html>
 
 <head>
-    <title>My Own Englush Learning App</title>
+    <title>My Own English Learning App</title>
 
-    <!-- CSS: Change how the app looks -->
     <style>
         body {
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             text-align: center;
             margin: 100px;
+            background-color: #fff4e6;
+        }
+
+        h1 {
+            color: #ff7f50;
+        }
+
+        p {
+            font-size: 24px;
+            color: #444;
         }
 
         button {
             font-size: 20px;
-            padding: 12px;
-            margin: 5px;
-            background-color: brown;
+            padding: 12px 25px;
+            margin: 8px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .correct {
+            background-color: #90ee90;
+        }
+
+        .wrong1 {
+            background-color: #87ceeb;
+        }
+
+        .wrong2 {
+            background-color: #dda0dd;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #feedback {
+            margin-top: 30px;
+            font-size: 22px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- HTML: Change what learners see -->
+    <h1>🌟 Vocabulary Quiz 🌟</h1>
 
-    <h1>Vocabulary Quiz</h1>
+    <p>What does <b>"give up"</b> mean?</p>
 
-    <p>What does "run away" mean?</p>
-
-    <button onclick="checkAnswer('escape')">
-        Escape
+    <button class="correct" onclick="checkAnswer('quit')">
+        Quit
     </button>
 
-    <button onclick="checkAnswer('avoid')">
-        Avoid
+    <button class="wrong1" onclick="checkAnswer('start')">
+        Start
     </button>
 
-    <button onclick="checkAnswer('watch')">
-        Watch
+    <button class="wrong2" onclick="checkAnswer('carry')">
+        Carry
     </button>
 
     <h3 id="feedback"></h3>
 
 
-    <!-- JavaScript: Change what happens -->
-
     <script>
 
         function checkAnswer(answer) {
 
-            if (answer === "escape") {
+            if (answer === "quit") {
                 document.getElementById("feedback").innerText =
-                    "Correct! Well done!";
+                    "🎉 Correct! Well done!";
+                document.getElementById("feedback").style.color = "green";
             }
 
             else {
                 document.getElementById("feedback").innerText =
-                    "Incorrect. The answer is Escape.";
+                    "❌ Incorrect. The answer is Quit.";
+                document.getElementById("feedback").style.color = "red";
             }
 
         }
