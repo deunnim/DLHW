@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Cozy Vocabulary Pet</title>
+
+<style>
+
+/* =========================
+   BASIC
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Trebuchet MS", "Arial Rounded MT Bold", Arial, sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, #fff5c9 0 8%, transparent 9%),
+        radial-gradient(circle at 80% 15%, #ffdce8 0 7%, transparent 8%),
+        linear-gradient(135deg, #ffeef5, #e8f7ff);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   GAME CONTAINER
+========================= */
+
+.game {
+    width: 900px;
+    max-width: 96%;
+
+    background: rgba(255,255,255,0.95);
+
+    border-radius: 35px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 12px 0 #e5bfd0,
+        0 20px 40px rgba(100,70,90,0.18);
+
+    text-align: center;
+
+    position: relative;
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.title {
+    margin: 0;
+
+    font-size: 42px;
+    font-weight: 900;
+
+    color: #ff6f9f;
+
+    letter-spacing: -2px;
+
+    text-shadow:
+        2px 3px 0 white,
+        4px 5px 0 #ffd0df;
+}
+
+.subtitle {
+    margin: 8px 0 20px;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    color: #776575;
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-area {
+    max-width: 650px;
+    margin: auto;
+}
+
+.progress-text {
+    font-size: 16px;
+    font-weight: 900;
+
+    color: #765b6c;
+
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    height: 22px;
+
+    background: #f1e8ed;
+
+    border-radius: 20px;
+
+    padding: 4px;
+}
+
+.progress-fill {
+    height: 100%;
+
+    width: 20%;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        90deg,
+        #ff91b8,
+        #ffca72
+    );
+
+    transition: width .5s ease;
+}
+
+
+/* =========================
+   PET AREA
+========================= */
+
+.pet-area {
+    margin: 22px auto;
+
+    max-width: 650px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #e7f8ff,
+            #fff8fc
+        );
+
+    border-radius: 30px;
+
+    padding: 18px;
+
+    box-shadow:
+        inset 0 0 0 4px white,
+        0 5px 15px rgba(100,80,100,.12);
+
+    position: relative;
+}
+
+.pet-title {
+    font-size: 16px;
+    font-weight: 900;
+
+    color: #8b6c7e;
+
+    margin-bottom: 5px;
+}
+
+
+/* =========================
+   REALISTIC CUTE BUNNY
+========================= */
+
+.pet {
+    width: 270px;
+    height: 280px;
+
+    position: relative;
+
+    margin: auto;
+}
+
+
+/* EARS */
+
+.ear {
+    position: absolute;
+
+    width: 75px;
+    height: 125px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f4d7d9,
+            #fff0f1,
+            #f3ced3
+        );
+
+    border-radius: 55% 55% 45% 45%;
+
+    box-shadow:
+        inset 0 0 0 5px #fff,
+        0 5px 10px rgba(100,70,80,.15);
+
+    top: 5px;
+
+    z-index: 1;
+}
+
+.ear::after {
+    content: "";
+
+    position: absolute;
+
+    width: 38px;
+    height: 88px;
+
+    background: #f3aeba;
+
+    border-radius: 50%;
+
+    left: 18px;
+    top: 18px;
+
+    opacity: .55;
+}
+
+.ear.left {
+    left: 45px;
+    transform: rotate(-10deg);
+}
+
+.ear.right {
+    right: 45px;
+    transform: rotate(10deg);
+}
+
+
+/* HEAD */
+
+.head {
+    position: absolute;
+
+    width: 205px;
+    height: 185px;
+
+    left: 32px;
+    top: 70px;
+
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            white,
+            #f9e3e3 55%,
+            #edc9cf
+        );
+
+    border-radius: 48% 48% 45% 45%;
+
+    box-shadow:
+        0 10px 15px rgba(100,70,80,.16);
+
+    z-index: 3;
+}
+
+
+/* CHEEKS */
+
+.cheek {
+    position: absolute;
+
+    width: 48px;
+    height: 25px;
+
+    background: #f5b6c2;
+
+    border-radius: 50%;
+
+    top: 112px;
+
+    opacity: .65;
+}
+
+.cheek.left {
+    left: 20px;
+}
+
+.cheek.right {
+    right: 20px;
+}
+
+
+/* EYES */
+
+.eye {
+    position: absolute;
+
+    width: 18px;
+    height: 25px;
+
+    background: #493642;
+
+    border-radius: 50%;
+
+    top: 60px;
+}
+
+.eye::after {
+    content: "";
+
+    position: absolute;
+
+    width: 6px;
+    height: 7px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    left: 4px;
+    top: 4px;
+}
+
+.eye.left {
+    left: 55px;
+}
+
+.eye.right {
+    right: 55px;
+}
+
+
+/* NOSE */
+
+.nose {
+    position: absolute;
+
+    width: 18px;
+    height: 14px;
+
+    background: #e99aa8;
+
+    border-radius: 50% 50% 60% 60%;
+
+    left: 94px;
+    top: 94px;
+}
+
+
+/* MOUTH */
+
+.mouth {
+    position: absolute;
+
+    width: 35px;
+    height: 22px;
+
+    left: 85px;
+    top: 105px;
+
+    border-bottom: 4px solid #493642;
+
+    border-radius: 50%;
+}
+
+
+/* =========================
+   CLOTHING
+========================= */
+
+.shirt {
+    position: absolute;
+
+    width: 140px;
+    height: 75px;
+
+    left: 65px;
+    top: 205px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff9dbb,
+            #ffbfd0
+        );
+
+    border-radius: 45% 45% 20% 20%;
+
+    box-shadow:
+        0 5px 8px rgba(100,70,80,.2);
+
+    z-index: 2;
+
+    display: none;
+}
+
+
+/* HAT */
+
+.hat {
+    position: absolute;
+
+    width: 155px;
+    height: 65px;
+
+    left: 58px;
+    top: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a78bfa,
+            #c4b5fd
+        );
+
+    border-radius: 80% 80% 35% 35%;
+
+    z-index: 6;
+
+    display: none;
+
+    box-shadow:
+        0 5px 10px rgba(100,70,120,.2);
+}
+
+.hat::after {
+    content: "";
+
+    position: absolute;
+
+    width: 185px;
+    height: 25px;
+
+    background: #8b72e8;
+
+    border-radius: 50%;
+
+    left: -15px;
+    bottom: -10px;
+}
+
+
+/* GLASSES */
+
+.glasses {
+    position: absolute;
+
+    left: 65px;
+    top: 145px;
+
+    width: 140px;
+
+    display: none;
+
+    z-index: 7;
+}
+
+.glass {
+    width: 55px;
+    height: 40px;
+
+    border: 6px solid #514052;
+
+    background: rgba(180,230,255,.45);
+
+    border-radius: 15px;
+
+    position: absolute;
+}
+
+.glass.left {
+    left: 0;
+}
+
+.glass.right {
+    right: 0;
+}
+
+.glasses::after {
+    content: "";
+
+    position: absolute;
+
+    width: 35px;
+    height: 6px;
+
+    background: #514052;
+
+    left: 52px;
+    top: 15px;
+}
+
+
+/* SCARF */
+
+.scarf {
+    position: absolute;
+
+    width: 160px;
+    height: 35px;
+
+    left: 55px;
+    top: 190px;
+
+    background: #ff7fa8;
+
+    border-radius: 20px;
+
+    display: none;
+
+    z-index: 5;
+}
+
+
+/* BAG */
+
+.bag {
+    position: absolute;
+
+    width: 55px;
+    height: 65px;
+
+    left: 25px;
+    top: 205px;
+
+    background: #8fd694;
+
+    border-radius: 15px;
+
+    display: none;
+
+    z-index: 8;
+
+    box-shadow:
+        0 4px 8px rgba(60,100,70,.2);
+}
+
+.bag::before {
+    content: "";
+
+    position: absolute;
+
+    width: 35px;
+    height: 25px;
+
+    border: 5px solid #6b9f71;
+
+    border-bottom: none;
+
+    border-radius: 20px 20px 0 0;
+
+    left: 5px;
+    top: -20px;
+}
+
+
+/* =========================
+   QUESTION
+========================= */
+
+.question-box {
+
+    margin: 20px auto;
+
+    max-width: 680px;
+
+    background: #fff;
+
+    border-radius: 25px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 6px 15px rgba(100,70,90,.1);
+}
+
+.question-number {
+
+    color: #ff719f;
+
+    font-size: 16px;
+
+    font-weight: 900;
+}
+
+.word {
+
+    font-size: 38px;
+
+    font-weight: 900;
+
+    color: #514052;
+
+    margin: 8px 0;
+}
+
+.instruction {
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #9b8592;
+}
+
+
+/* =========================
+   ANSWERS
+========================= */
+
+.answers {
+
+    max-width: 680px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+.answer {
+
+    border: none;
+
+    padding: 17px;
+
+    border-radius: 20px;
+
+    font-family: inherit;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+    color: #514052;
+
+    background: #fff0a8;
+
+    box-shadow:
+        0 5px 0 #e1c978;
+
+    cursor: pointer;
+
+    transition: .15s;
+}
+
+.answer:nth-child(2) {
+    background: #bdebf2;
+    box-shadow: 0 5px 0 #8dcbd4;
+}
+
+.answer:nth-child(3) {
+    background: #ffc7dc;
+    box-shadow: 0 5px 0 #e7a1bd;
+}
+
+.answer:nth-child(4) {
+    background: #d9c8ff;
+    box-shadow: 0 5px 0 #b19bdf;
+}
+
+.answer:nth-child(5) {
+    background: #c9efc9;
+    box-shadow: 0 5px 0 #9dcc9d;
+}
+
+.answer:hover {
+    transform: translateY(-3px);
+}
+
+.answer:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+.answer:disabled {
+    opacity: .6;
+    cursor: default;
+}
+
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.feedback {
+
+    min-height: 35px;
+
+    margin: 20px;
+
+    font-size: 20px;
+
+    font-weight: 900;
+}
+
+.correct {
+    color: #35a853;
+}
+
+.wrong {
+    color: #e05b73;
+}
+
+
+/* =========================
+   CORRECT EFFECT
+========================= */
+
+.celebration {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 100;
+
+    display: none;
+}
+
+.star {
+
+    position: absolute;
+
+    font-size: 30px;
+
+    animation:
+        burst 1.2s ease-out forwards;
+}
+
+@keyframes burst {
+
+    0% {
+        transform:
+            translate(0,0)
+            scale(.3)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(var(--x),var(--y))
+            scale(1.5)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* BIG CORRECT MESSAGE */
+
+.correct-pop {
+
+    position: fixed;
+
+    left: 50%;
+    top: 45%;
+
+    transform: translate(-50%,-50%) scale(.2);
+
+    background: white;
+
+    padding: 25px 45px;
+
+    border-radius: 35px;
+
+    color: #ff6f9f;
+
+    font-size: 34px;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 10px 40px rgba(100,60,90,.25);
+
+    z-index: 200;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.correct-pop.show {
+
+    animation:
+        pop .9s ease forwards;
+}
+
+@keyframes pop {
+
+    0% {
+        transform:
+            translate(-50%,-50%)
+            scale(.2);
+
+        opacity: 0;
+    }
+
+    50% {
+        transform:
+            translate(-50%,-50%)
+            scale(1.15);
+
+        opacity: 1;
+    }
+
+    75% {
+        transform:
+            translate(-50%,-50%)
+            scale(.95);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   ENDING
+========================= */
+
+.ending {
+    display: none;
+}
+
+.ending h2 {
+
+    font-size: 40px;
+
+    color: #ff719f;
+
+    font-weight: 900;
+}
+
+.reward {
+
+    font-size: 19px;
+
+    font-weight: 800;
+
+    line-height: 1.8;
+
+    color: #655566;
+}
+
+.game-button {
+
+    border: none;
+
+    padding: 17px 40px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7da9,
+            #ffb36b
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 0 #d9678e;
+}
+
+.game-button:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+
+    .game {
+        padding: 18px;
+    }
+
+    .title {
+        font-size: 29px;
+    }
+
+    .word {
+        font-size: 30px;
+    }
+
+    .answers {
+        grid-template-columns: 1fr;
+    }
+
+    .pet {
+        transform: scale(.85);
+        margin-bottom: -35px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="game">
+
+    <h1 class="title">
+        🐰 My Cozy Vocabulary Pet
+    </h1>
+
+    <div class="subtitle">
+        Learn words → Get cute clothes → Complete your pet! ✨
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div class="progress-area">
+
+        <div class="progress-text" id="progressText">
+            Question 1 / 5
+        </div>
+
+        <div class="progress-bar">
+            <div
+                class="progress-fill"
+                id="progressFill">
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- PET -->
+
+    <div class="pet-area">
+
+        <div class="pet-title">
+            💕 YOUR LITTLE BUNNY 💕
+        </div>
+
+
+        <div class="pet">
+
+
+            <!-- EARS -->
+
+            <div class="ear left"></div>
+            <div class="ear right"></div>
+
+
+            <!-- HEAD -->
+
+            <div class="head">
+
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+
+                <div class="cheek left"></div>
+                <div class="cheek right"></div>
+
+                <div class="nose"></div>
+
+                <div class="mouth"></div>
+
+            </div>
+
+
+            <!-- CLOTHES -->
+
+            <div
+                class="shirt"
+                id="shirt">
+            </div>
+
+
+            <div
+                class="hat"
+                id="hat">
+            </div>
+
+
+            <div
+                class="glasses"
+                id="glasses">
+
+                <div class="glass left"></div>
+                <div class="glass right"></div>
+
+            </div>
+
+
+            <div
+                class="scarf"
+                id="scarf">
+            </div>
+
+
+            <div
+                class="bag"
+                id="bag">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUIZ -->
+
+    <div id="quiz">
+
+        <div class="question-box">
+
+            <div
+                class="question-number"
+                id="questionNumber">
+                QUESTION 1
+            </div>
+
+
+            <div
+                class="word"
+                id="word">
+                give up
+            </div>
+
+
+            <div class="instruction">
+                What does this expression mean?
+            </div>
+
+        </div>
+
+
+        <div
+            class="answers"
+            id="answers">
+
+            <button
+                class="answer"
+                onclick="checkAnswer(0)">
+                To continue
+            </button>
+
+            <button
+                class="answer"
+                onclick="checkAnswer(1)">
+                To quit
+            </button>
+
+            <button
+                class="answer"
+                onclick="checkAnswer(2)">
+                To arrive
+            </button>
+
+            <button
+                class="answer"
+                onclick="checkAnswer(3)">
+                To collect
+            </button>
+
+            <button
+                class="answer"
+                onclick="checkAnswer(4)">
+                To repair
+            </button>
+
+        </div>
+
+
+        <div
+            class="feedback"
+            id="feedback">
+        </div>
+
+    </div>
+
+
+    <!-- END -->
+
+    <div
+        class="ending"
+        id="ending">
+
+        <h2>
+            🎉 YOU DID IT! 🎉
+        </h2>
+
+        <div class="reward">
+
+            You learned all 5 vocabulary words! 💕
+
+            <br>
+
+            Your little bunny is ready for an adventure! 🐰
+
+            <br><br>
+
+            👕 🎩 👓 🧣 👜
+
+            <br>
+
+            <b>Vocabulary Master!</b> ⭐
+
+        </div>
+
+        <br>
+
+        <button
+            class="game-button"
+            onclick="restartGame()">
+
+            🔄 PLAY AGAIN
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- CELEBRATION -->
+
+<div
+    class="celebration"
+    id="celebration">
+</div>
+
+
+<div
+    class="correct-pop"
+    id="correctPop">
+
+    ✨ CORRECT! ✨
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   VOCABULARY
+========================= */
+
+const questions = [
+
+    {
+        word: "give up",
+
+        answers: [
+            "To continue",
+            "To quit",
+            "To arrive",
+            "To collect",
+            "To repair"
+        ],
+
+        correct: 1
+    },
+
+
+    {
+        word: "look after",
+
+        answers: [
+            "To take care of",
+            "To run away",
+            "To break",
+            "To forget",
+            "To borrow"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        word: "figure out",
+
+        answers: [
+            "To sleep",
+            "To clean",
+            "To understand or solve",
+            "To shout",
+            "To hide"
+        ],
+
+        correct: 2
+    },
+
+
+    {
+        word: "put off",
+
+        answers: [
+            "To turn on",
+            "To postpone",
+            "To pick up",
+            "To invite",
+            "To arrive"
+        ],
+
+        correct: 1
+    },
+
+
+    {
+        word: "run into",
+
+        answers: [
+            "To meet unexpectedly",
+            "To exercise",
+            "To escape",
+            "To build",
+            "To throw"
+        ],
+
+        correct: 0
+    }
+
+];
+
+
+let currentQuestion = 0;
+
+
+/* =========================
+   LOAD QUESTION
+========================= */
+
+function loadQuestion() {
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("questionNumber")
+        .innerText =
+        "QUESTION " +
+        (currentQuestion + 1);
+
+
+    document.getElementById("word")
+        .innerText =
+        q.word;
+
+
+    document.getElementById("progressText")
+        .innerText =
+        "Question " +
+        (currentQuestion + 1) +
+        " / 5";
+
+
+    document.getElementById("progressFill")
+        .style.width =
+        ((currentQuestion + 1) * 20) + "%";
+
+
+    const buttons =
+        document.querySelectorAll(".answer");
+
+
+    buttons.forEach(
+        function(button, index) {
+
+            button.innerText =
+                q.answers[index];
+
+            button.disabled = false;
+
+        }
+    );
+
+
+    document.getElementById("feedback")
+        .innerText = "";
+
+}
+
+
+/* =========================
+   ANSWER
+========================= */
+
+function checkAnswer(selected) {
+
+    const q = questions[currentQuestion];
+
+    const buttons =
+        document.querySelectorAll(".answer");
+
+
+    if (selected === q.correct) {
+
+        buttons.forEach(
+            button =>
+                button.disabled = true
+        );
+
+
+        document.getElementById("feedback")
+            .innerText =
+            "🎀 Amazing! Your bunny got a new item!";
+
+
+        document.getElementById("feedback")
+            .className =
+            "feedback correct";
+
+
+        celebrate();
+
+
+        giveItem(currentQuestion);
+
+
+        setTimeout(
+            function() {
+
+                currentQuestion++;
+
+                if (
+                    currentQuestion <
+                    questions.length
+                ) {
+
+                    loadQuestion();
+
+                } else {
+
+                    finishGame();
+
+                }
+
+            },
+            1200
+        );
+
+
+    } else {
+
+        document.getElementById("feedback")
+            .innerText =
+            "💗 Almost! Try again!";
+
+
+        document.getElementById("feedback")
+            .className =
+            "feedback wrong";
+
+    }
+
+}
+
+
+/* =========================
+   CLOTHES
+========================= */
+
+function giveItem(number) {
+
+    if (number === 0) {
+
+        document.getElementById("shirt")
+            .style.display =
+            "block";
+
+    }
+
+
+    if (number === 1) {
+
+        document.getElementById("hat")
+            .style.display =
+            "block";
+
+    }
+
+
+    if (number === 2) {
+
+        document.getElementById("glasses")
+            .style.display =
+            "block";
+
+    }
+
+
+    if (number === 3) {
+
+        document.getElementById("scarf")
+            .style.display =
+            "block";
+
+    }
+
+
+    if (number === 4) {
+
+        document.getElementById("bag")
+            .style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =========================
+   CELEBRATION
+========================= */
+
+function celebrate() {
+
+    const area =
+        document.getElementById(
+            "celebration"
+        );
+
+    area.innerHTML = "";
+
+    area.style.display = "block";
+
+
+    const symbols = [
+        "⭐",
+        "✨",
+        "💖",
+        "🌸",
+        "🎀",
+        "💫",
+        "💕",
+        "🌟"
+    ];
+
+
+    for (let i = 0; i < 30; i++) {
+
+        const star =
+            document.createElement("div");
+
+
+        star.className = "star";
+
+
+        star.innerText =
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
+
+
+        star.style.left =
+            "50%";
+
+        star.style.top =
+            "45%";
+
+
+        star.style.setProperty(
+            "--x",
+            (Math.random() * 700 - 350) +
+            "px"
+        );
+
+
+        star.style.setProperty(
+            "--y",
+            (Math.random() * 500 - 250) +
+            "px"
+        );
+
+
+        star.style.animationDelay =
+            (Math.random() * .2) +
+            "s";
+
+
+        area.appendChild(star);
+
+    }
+
+
+    const pop =
+        document.getElementById(
+            "correctPop"
+        );
+
+
+    pop.classList.remove("show");
+
+
+    void pop.offsetWidth;
+
+
+    pop.classList.add("show");
+
+
+    setTimeout(
+        function() {
+
+            area.style.display =
+                "none";
+
+        },
+        1300
+    );
+
+}
+
+
+/* =========================
+   FINISH
+========================= */
+
+function finishGame() {
+
+    document.getElementById("quiz")
+        .style.display =
+        "none";
+
+
+    document.getElementById("ending")
+        .style.display =
+        "block";
+
+
+    celebrate();
+
+}
+
+
+/* =========================
+   RESTART
+========================= */
+
+function restartGame() {
+
+    currentQuestion = 0;
+
+
+    document.getElementById("quiz")
+        .style.display =
+        "block";
+
+
+    document.getElementById("ending")
+        .style.display =
+        "none";
+
+
+    document.getElementById("shirt")
+        .style.display =
+        "none";
+
+
+    document.getElementById("hat")
+        .style.display =
+        "none";
+
+
+    document.getElementById("glasses")
+        .style.display =
+        "none";
+
+
+    document.getElementById("scarf")
+        .style.display =
+        "none";
+
+
+    document.getElementById("bag")
+        .style.display =
+        "none";
+
+
+    loadQuestion();
+
+}
+
+
+/* START */
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
