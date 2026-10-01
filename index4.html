@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Cute English Closet</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Baloo 2", "Arial Rounded MT Bold", sans-serif;
+    color: #514a5c;
+    background:
+        radial-gradient(circle at 8% 12%, #fff2a6 0 18px, transparent 19px),
+        radial-gradient(circle at 91% 16%, #ffd6e7 0 20px, transparent 21px),
+        radial-gradient(circle at 12% 88%, #d9f5ff 0 17px, transparent 18px),
+        linear-gradient(135deg,#e3f9ff,#fff0f7 52%,#fff9df);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow-x:hidden;
+}
+
+.float {
+    position:fixed;
+    font-size:28px;
+    pointer-events:none;
+    opacity:.65;
+    animation:float 4s ease-in-out infinite;
+}
+
+.f1 {left:6%;top:10%;}
+.f2 {right:7%;top:20%;animation-delay:1s;}
+.f3 {left:9%;bottom:12%;animation-delay:2s;}
+.f4 {right:8%;bottom:10%;animation-delay:.7s;}
+
+@keyframes float {
+    0%,100% {transform:translateY(0) rotate(-5deg);}
+    50% {transform:translateY(-12px) rotate(7deg);}
+}
+
+/* =========================
+   GAME BOX
+========================= */
+
+.game {
+    width:min(1050px,94vw);
+    min-height:690px;
+    padding:28px;
+    border-radius:42px;
+    background:rgba(255,255,255,.95);
+    box-shadow:
+        0 28px 70px rgba(95,78,110,.18),
+        0 5px 15px rgba(95,78,110,.08);
+    position:relative;
+}
+
+/* =========================
+   START
+========================= */
+
+.start-screen {
+    min-height:620px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.start-bunny {
+    font-size:120px;
+    animation:bounce 1.8s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%,100% {transform:translateY(0);}
+    50% {transform:translateY(-16px);}
+}
+
+.start-screen h1 {
+    font-size:48px;
+    color:#7164ad;
+    margin:5px 0;
+}
+
+.start-screen p {
+    font-size:19px;
+    margin:3px 0;
+}
+
+.start-btn,
+.restart-btn {
+    margin-top:25px;
+    border:none;
+    border-radius:25px;
+    padding:15px 38px;
+    font-family:inherit;
+    font-size:20px;
+    font-weight:800;
+    color:white;
+    cursor:pointer;
+    background:linear-gradient(135deg,#ff9fc8,#9d91ec);
+    box-shadow:0 9px 20px rgba(140,110,170,.25);
+    transition:.2s;
+}
+
+.start-btn:hover,
+.restart-btn:hover {
+    transform:translateY(-3px) scale(1.04);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+#gameScreen {
+    display:none;
+}
+
+.header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo {
+    font-size:27px;
+    font-weight:800;
+    color:#7164ad;
+}
+
+.score {
+    padding:8px 18px;
+    border-radius:20px;
+    background:#fff1a8;
+    font-weight:800;
+}
+
+.progress-area {
+    margin:18px 0 23px;
+}
+
+.progress-text {
+    display:flex;
+    justify-content:space-between;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.progress-bar {
+    height:13px;
+    border-radius:20px;
+    background:#eeeaf5;
+    overflow:hidden;
+}
+
+.progress {
+    height:100%;
+    width:0;
+    border-radius:20px;
+    background:linear-gradient(90deg,#ff9ec6,#a69bf2);
+    transition:.5s;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    display:grid;
+    grid-template-columns:44% 56%;
+    gap:22px;
+}
+
+/* =========================
+   CHARACTER STAGE
+========================= */
+
+.character-stage {
+    min-height:520px;
+    border-radius:34px;
+    background:
+        radial-gradient(circle at 50% 18%,white 0 75px,transparent 76px),
+        linear-gradient(180deg,#f6f1ff,#e8f9ff);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.character-stage::before {
+    content:"";
+    position:absolute;
+    width:220px;
+    height:42px;
+    bottom:36px;
+    border-radius:50%;
+    background:rgba(105,88,130,.13);
+}
+
+/* =========================
+   CHARACTER
+   Everything is inside
+   ONE coordinate system
+========================= */
+
+.character {
+    position:relative;
+    width:280px;
+    height:450px;
+    z-index:2;
+}
+
+/* ears */
+
+.ear {
+    position:absolute;
+    top:3px;
+    width:70px;
+    height:145px;
+    background:#fffdfd;
+    border:4px solid #d9d1dc;
+    border-radius:50px;
+    z-index:1;
+}
+
+.ear.left {
+    left:55px;
+    transform:rotate(-9deg);
+}
+
+.ear.right {
+    right:55px;
+    transform:rotate(9deg);
+}
+
+.inner-ear {
+    position:absolute;
+    width:34px;
+    height:110px;
+    top:14px;
+    left:14px;
+    border-radius:30px;
+    background:#ffcddd;
+}
+
+/* HEAD */
+
+.head {
+    position:absolute;
+    left:43px;
+    top:65px;
+    width:194px;
+    height:180px;
+    border-radius:50%;
+    background:#fffdfd;
+    border:4px solid #d9d1dc;
+    z-index:4;
+}
+
+/* eyes */
+
+.eye {
+    position:absolute;
+    top:73px;
+    width:17px;
+    height:24px;
+    border-radius:50%;
+    background:#4a4350;
+}
+
+.eye.left {left:53px;}
+.eye.right {right:53px;}
+
+.eye::after {
+    content:"";
+    position:absolute;
+    width:6px;
+    height:8px;
+    left:4px;
+    top:3px;
+    border-radius:50%;
+    background:white;
+}
+
+/* cheeks */
+
+.cheek {
+    position:absolute;
+    top:105px;
+    width:31px;
+    height:16px;
+    border-radius:50%;
+    background:#ffc5d7;
+    opacity:.72;
+}
+
+.cheek.left {left:26px;}
+.cheek.right {right:26px;}
+
+/* nose */
+
+.nose {
+    position:absolute;
+    left:88px;
+    top:101px;
+    width:18px;
+    height:13px;
+    background:#e79bb5;
+    border-radius:50%;
+}
+
+/* mouth */
+
+.mouth {
+    position:absolute;
+    left:86px;
+    top:114px;
+    width:22px;
+    height:14px;
+    border-bottom:3px solid #706876;
+    border-radius:50%;
+}
+
+/* BODY */
+
+.body {
+    position:absolute;
+    left:67px;
+    top:225px;
+    width:146px;
+    height:173px;
+    background:#fffdfd;
+    border:4px solid #d9d1dc;
+    border-radius:72px 72px 55px 55px;
+    z-index:3;
+}
+
+/* arms */
+
+.arm {
+    position:absolute;
+    top:248px;
+    width:47px;
+    height:105px;
+    border-radius:30px;
+    background:#fffdfd;
+    border:4px solid #d9d1dc;
+    z-index:2;
+}
+
+.arm.left {
+    left:45px;
+    transform:rotate(14deg);
+}
+
+.arm.right {
+    right:45px;
+    transform:rotate(-14deg);
+}
+
+/* feet */
+
+.foot {
+    position:absolute;
+    top:385px;
+    width:70px;
+    height:46px;
+    background:#fffdfd;
+    border:4px solid #d9d1dc;
+    border-radius:50%;
+    z-index:6;
+}
+
+.foot.left {left:60px;}
+.foot.right {right:60px;}
+
+/* =========================
+   CLOTHING
+========================= */
+
+/* SHIRT */
+
+.shirt {
+    position:absolute;
+    left:75px;
+    top:238px;
+    width:130px;
+    height:103px;
+    background:#9fd5f5;
+    border:3px solid #76b7df;
+    border-radius:31px 31px 42px 42px;
+    z-index:5;
+}
+
+/* collar */
+
+.shirt .collar {
+    position:absolute;
+    left:39px;
+    top:-5px;
+    width:52px;
+    height:27px;
+    background:#fff;
+    clip-path:polygon(0 0,50% 100%,100% 0);
+    border-bottom:3px solid #76b7df;
+}
+
+/* buttons */
+
+.shirt .button {
+    position:absolute;
+    left:61px;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#6da8ce;
+}
+
+.shirt .b1 {top:35px;}
+.shirt .b2 {top:51px;}
+.shirt .b3 {top:67px;}
+
+/* pocket */
+
+.shirt .pocket {
+    position:absolute;
+    right:15px;
+    top:45px;
+    width:27px;
+    height:23px;
+    border:2px solid #76b7df;
+    border-radius:4px 4px 9px 9px;
+}
+
+/* sleeves */
+
+.shirt .sleeve {
+    position:absolute;
+    top:10px;
+    width:43px;
+    height:48px;
+    background:#9fd5f5;
+    border:3px solid #76b7df;
+    border-radius:18px;
+}
+
+.shirt .sleeve.left {
+    left:-30px;
+    transform:rotate(12deg);
+}
+
+.shirt .sleeve.right {
+    right:-30px;
+    transform:rotate(-12deg);
+}
+
+
+/* SKIRT */
+
+.skirt {
+    position:absolute;
+    left:56px;
+    top:323px;
+    width:168px;
+    height:72px;
+    background:#f5a5c6;
+    border:3px solid #df88ad;
+    border-radius:10px 10px 60px 60px;
+    z-index:7;
+    overflow:hidden;
+}
+
+.skirt .waist {
+    position:absolute;
+    top:-4px;
+    left:0;
+    width:100%;
+    height:15px;
+    background:#df88ad;
+}
+
+.skirt .pleat {
+    position:absolute;
+    top:12px;
+    width:3px;
+    height:57px;
+    background:#df88ad;
+    opacity:.7;
+}
+
+.skirt .p1 {left:25px;}
+.skirt .p2 {left:55px;}
+.skirt .p3 {left:85px;}
+.skirt .p4 {left:115px;}
+.skirt .p5 {left:145px;}
+
+.skirt .lace {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:12px;
+    background:
+        radial-gradient(circle at 7px 0,#fff 0 7px,transparent 8px)
+        0 0/18px 12px repeat-x;
+}
+
+
+/* SHOES */
+
+.shoes {
+    display:none;
+    position:absolute;
+    z-index:10;
+}
+
+.shoe {
+    position:absolute;
+    top:385px;
+    width:69px;
+    height:47px;
+    background:#b9a7e9;
+    border:3px solid #8d79cf;
+    border-radius:35px 35px 25px 25px;
+}
+
+.shoe.left {left:60px;}
+.shoe.right {right:60px;}
+
+.shoe::before {
+    content:"";
+    position:absolute;
+    top:7px;
+    left:16px;
+    width:36px;
+    height:5px;
+    background:#fff;
+    border-radius:10px;
+}
+
+
+/* HAT */
+
+.hat {
+    display:none;
+    position:absolute;
+    inset:0;
+    z-index:12;
+}
+
+.hat-crown {
+    position:absolute;
+    left:87px;
+    top:37px;
+    width:108px;
+    height:78px;
+    border-radius:55px 55px 12px 12px;
+    background:#9d8de8;
+    border:3px solid #7e6fc6;
+    transform:rotate(-4deg);
+}
+
+.hat-band {
+    position:absolute;
+    left:87px;
+    top:91px;
+    width:108px;
+    height:17px;
+    background:#f59dbf;
+    border-radius:10px;
+    z-index:2;
+}
+
+.hat-brim {
+    position:absolute;
+    left:63px;
+    top:102px;
+    width:155px;
+    height:25px;
+    border-radius:50%;
+    background:#8877d5;
+    border:3px solid #7564bc;
+}
+
+.hat-bow {
+    position:absolute;
+    left:166px;
+    top:81px;
+    z-index:3;
+}
+
+.hat-bow::before,
+.hat-bow::after {
+    content:"";
+    position:absolute;
+    width:28px;
+    height:20px;
+    background:#ffabc8;
+    border:2px solid #dc7f9f;
+}
+
+.hat-bow::before {
+    border-radius:20px 5px 5px 20px;
+    left:-26px;
+}
+
+.hat-bow::after {
+    border-radius:5px 20px 20px 5px;
+    left:0;
+}
+
+.hat-bow span {
+    position:absolute;
+    width:13px;
+    height:13px;
+    background:#ff8fb4;
+    border-radius:50%;
+    left:-5px;
+    top:3px;
+    z-index:2;
+}
+
+
+/* GLASSES */
+
+.glasses {
+    display:none;
+    position:absolute;
+    left:68px;
+    top:126px;
+    z-index:15;
+}
+
+.lens {
+    position:absolute;
+    width:59px;
+    height:39px;
+    border:4px solid #5f5968;
+    border-radius:18px;
+    background:rgba(220,240,255,.32);
+}
+
+.lens.left {left:0;}
+.lens.right {left:65px;}
+
+.bridge {
+    position:absolute;
+    left:53px;
+    top:15px;
+    width:27px;
+    height:4px;
+    border-radius:5px;
+    background:#5f5968;
+}
+
+.glasses::after {
+    content:"";
+    position:absolute;
+    left:-12px;
+    top:13px;
+    width:18px;
+    height:4px;
+    background:#5f5968;
+}
+
+
+/* SCARF */
+
+.scarf {
+    display:none;
+    position:absolute;
+    left:66px;
+    top:212px;
+    width:148px;
+    height:35px;
+    background:#ffd96c;
+    border:3px solid #e8bb3e;
+    border-radius:20px;
+    z-index:9;
+}
+
+.scarf-tail {
+    position:absolute;
+    right:4px;
+    top:22px;
+    width:40px;
+    height:82px;
+    background:#ffd96c;
+    border:3px solid #e8bb3e;
+    border-top:none;
+    border-radius:0 0 20px 20px;
+    transform:rotate(9deg);
+}
+
+.scarf-tail::after {
+    content:"";
+    position:absolute;
+    bottom:10px;
+    left:6px;
+    width:25px;
+    height:3px;
+    background:#e8bb3e;
+    box-shadow:0 10px #e8bb3e;
+}
+
+
+/* BAG */
+
+.bag {
+    display:none;
+    position:absolute;
+    right:25px;
+    top:278px;
+    width:64px;
+    height:73px;
+    background:#c99b78;
+    border:3px solid #a87958;
+    border-radius:13px 13px 19px 19px;
+    z-index:11;
+}
+
+.bag-strap {
+    position:absolute;
+    width:70px;
+    height:80px;
+    border:7px solid #a87958;
+    border-right:none;
+    border-bottom:none;
+    border-radius:50px 0 0 0;
+    left:-11px;
+    top:-45px;
+    transform:rotate(-20deg);
+}
+
+.bag-flap {
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:24px;
+    background:#b88865;
+    border-radius:10px 10px 3px 3px;
+}
+
+.bag-button {
+    position:absolute;
+    left:28px;
+    top:9px;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#f8d777;
+}
+
+
+/* =========================
+   QUIZ
+========================= */
+
+.quiz {
+    padding:12px 15px;
+}
+
+.question-number {
+    display:inline-block;
+    padding:5px 14px;
+    border-radius:15px;
+    background:#eee8ff;
+    color:#7164ad;
+    font-weight:800;
+}
+
+.word {
+    font-size:43px;
+    font-weight:800;
+    color:#66599b;
+    margin:13px 0 2px;
+}
+
+.pronounce {
+    border:none;
+    background:#fff0a8;
+    color:#756128;
+    padding:7px 14px;
+    border-radius:16px;
+    font-family:inherit;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.meaning {
+    font-size:18px;
+    margin:12px 0 19px;
+}
+
+.answers {
+    display:grid;
+    gap:10px;
+}
+
+.answer {
+    border:2px solid transparent;
+    background:#f7f5fb;
+    border-radius:18px;
+    padding:13px;
+    font-family:inherit;
+    font-size:17px;
+    font-weight:700;
+    color:#5b5365;
+    cursor:pointer;
+    text-align:left;
+    transition:.18s;
+}
+
+.answer:hover {
+    transform:translateX(5px);
+    background:#fff0f7;
+    border-color:#ffb5d2;
+}
+
+.answer.correct {
+    background:#d9f7d5;
+    border-color:#7acb78;
+}
+
+.answer.wrong {
+    background:#ffe0e0;
+    border-color:#ec9292;
+}
+
+.feedback {
+    height:46px;
+    margin-top:12px;
+    text-align:center;
+    font-size:21px;
+    font-weight:800;
+}
+
+.sound-btn {
+    border:none;
+    background:#eae4ff;
+    border-radius:15px;
+    padding:7px 13px;
+    font-family:inherit;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.bgm-btn {
+    position:absolute;
+    bottom:18px;
+    right:28px;
+    border:none;
+    padding:8px 15px;
+    border-radius:18px;
+    background:#eee9ff;
+    color:#655b92;
+    font-family:inherit;
+    font-weight:800;
+    cursor:pointer;
+}
+
+
+/* =========================
+   CLOTHES ANIMATION
+========================= */
+
+.appear {
+    animation:clothesAppear .75s cubic-bezier(.2,1.5,.4,1);
+}
+
+@keyframes clothesAppear {
+    0% {
+        opacity:0;
+        transform:scale(.55) translateY(-15px) rotate(-8deg);
+    }
+    65% {
+        opacity:1;
+        transform:scale(1.08) translateY(0) rotate(3deg);
+    }
+    100% {
+        opacity:1;
+        transform:scale(1) translateY(0) rotate(0);
+    }
+}
+
+
+/* =========================
+   EFFECTS
+========================= */
+
+.effect {
+    position:fixed;
+    pointer-events:none;
+    z-index:100;
+    font-size:30px;
+    animation:effectPop 1.1s ease-out forwards;
+}
+
+@keyframes effectPop {
+    0% {
+        opacity:1;
+        transform:translate(0,0) scale(.3) rotate(0);
+    }
+    100% {
+        opacity:0;
+        transform:
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(1.4)
+            rotate(180deg);
+    }
+}
+
+
+/* =========================
+   END
+========================= */
+
+.end-screen {
+    min-height:620px;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.end-character {
+    font-size:100px;
+}
+
+.end-screen h1 {
+    color:#7164ad;
+    font-size:45px;
+    margin:5px;
+}
+
+.final-score {
+    font-size:25px;
+    font-weight:800;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:780px) {
+
+    .game {
+        padding:18px;
+    }
+
+    .main {
+        grid-template-columns:1fr;
+    }
+
+    .character-stage {
+        min-height:470px;
+    }
+
+    .start-screen h1 {
+        font-size:36px;
+    }
+
+    .word {
+        font-size:35px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="float f1">⭐</div>
+<div class="float f2">💗</div>
+<div class="float f3">✨</div>
+<div class="float f4">🌸</div>
+
+
+<div class="game">
+
+<!-- =====================
+     START
+===================== -->
+
+<div class="start-screen" id="startScreen">
+
+    <div class="start-bunny">🐰</div>
+
+    <h1>My Cute English Closet</h1>
+
+    <p>Learn English words and make your bunny fashionable! 👗</p>
+
+    <p>🔊 Listen · 💡 Choose · ✨ Dress Up</p>
+
+    <button class="start-btn" onclick="startGame()">
+        START GAME ✨
+    </button>
+
+</div>
+
+
+<!-- =====================
+     GAME
+===================== -->
+
+<div id="gameScreen">
+
+    <div class="header">
+
+        <div class="logo">
+            🐰 My English Closet
+        </div>
+
+        <div class="score" id="score">
+            ⭐ 0
+        </div>
+
+    </div>
+
+
+    <div class="progress-area">
+
+        <div class="progress-text">
+
+            <span id="progressText">
+                Question 1 / 5
+            </span>
+
+            <span>
+                👗 Dress Up!
+            </span>
+
+        </div>
+
+        <div class="progress-bar">
+
+            <div class="progress" id="progress"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="main">
+
+
+<!-- =====================
+     CHARACTER
+===================== -->
+
+<div class="character-stage">
+
+    <div class="character">
+
+        <!-- EARS -->
+
+        <div class="ear left">
+            <div class="inner-ear"></div>
+        </div>
+
+        <div class="ear right">
+            <div class="inner-ear"></div>
+        </div>
+
+
+        <!-- HEAD -->
+
+        <div class="head">
+
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+
+            <div class="cheek left"></div>
+            <div class="cheek right"></div>
+
+            <div class="nose"></div>
+            <div class="mouth"></div>
+
+        </div>
+
+
+        <!-- ARMS -->
+
+        <div class="arm left"></div>
+        <div class="arm right"></div>
+
+
+        <!-- BODY -->
+
+        <div class="body"></div>
+
+
+        <!-- CLOTHES -->
+
+        <!-- SHIRT -->
+
+        <div class="shirt clothes" id="shirt">
+
+            <div class="collar"></div>
+
+            <div class="sleeve left"></div>
+            <div class="sleeve right"></div>
+
+            <div class="button b1"></div>
+            <div class="button b2"></div>
+            <div class="button b3"></div>
+
+            <div class="pocket"></div>
+
+        </div>
+
+
+        <!-- SKIRT -->
+
+        <div class="skirt clothes" id="skirt">
+
+            <div class="waist"></div>
+
+            <div class="pleat p1"></div>
+            <div class="pleat p2"></div>
+            <div class="pleat p3"></div>
+            <div class="pleat p4"></div>
+            <div class="pleat p5"></div>
+
+            <div class="lace"></div>
+
+        </div>
+
+
+        <!-- SHOES -->
+
+        <div class="shoes clothes" id="shoes">
+
+            <div class="shoe left"></div>
+            <div class="shoe right"></div>
+
+        </div>
+
+
+        <!-- HAT -->
+
+        <div class="hat clothes" id="hat">
+
+            <div class="hat-crown"></div>
+
+            <div class="hat-band"></div>
+
+            <div class="hat-brim"></div>
+
+            <div class="hat-bow">
+                <span></span>
+            </div>
+
+        </div>
+
+
+        <!-- GLASSES -->
+
+        <div class="glasses clothes" id="glasses">
+
+            <div class="lens left"></div>
+
+            <div class="lens right"></div>
+
+            <div class="bridge"></div>
+
+        </div>
+
+
+        <!-- SCARF -->
+
+        <div class="scarf clothes" id="scarf">
+
+            <div class="scarf-tail"></div>
+
+        </div>
+
+
+        <!-- BAG -->
+
+        <div class="bag clothes" id="bag">
+
+            <div class="bag-strap"></div>
+
+            <div class="bag-flap"></div>
+
+            <div class="bag-button"></div>
+
+        </div>
+
+
+        <!-- FEET -->
+
+        <div class="foot left"></div>
+        <div class="foot right"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================
+     QUIZ
+===================== -->
+
+<div class="quiz">
+
+    <div class="question-number" id="questionNumber">
+        Question 1
+    </div>
+
+    <div class="word" id="word">
+        give up
+    </div>
+
+    <button class="pronounce" onclick="speakWord()">
+        🔊 Hear the word
+    </button>
+
+    <div class="meaning">
+        What does this expression mean?
+    </div>
+
+    <div class="answers" id="answers"></div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <button class="sound-btn" onclick="speakWord()">
+        🔊 Listen again
+    </button>
+
+</div>
+
+</div>
+
+<button class="bgm-btn" id="bgmButton" onclick="toggleBGM()">
+    🎵 BGM ON
+</button>
+
+</div>
+
+
+<!-- =====================
+     END
+===================== -->
+
+<div class="end-screen" id="endScreen">
+
+    <div class="end-character">
+        🐰✨
+    </div>
+
+    <h1>Fashion Complete! 👗</h1>
+
+    <div class="final-score" id="finalScore">
+        You got 5 / 5!
+    </div>
+
+    <p>
+        Your bunny looks amazing! 💕
+    </p>
+
+    <button class="restart-btn" onclick="restartGame()">
+        PLAY AGAIN 🌸
+    </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   QUESTIONS
+========================= */
+
+const questions = [
+
+    {
+        word:"give up",
+        choices:[
+            "Quit",
+            "Start",
+            "Carry",
+            "Remember",
+            "Choose"
+        ],
+        correct:"Quit"
+    },
+
+    {
+        word:"look after",
+        choices:[
+            "Take care of",
+            "Look at",
+            "Run away",
+            "Forget",
+            "Destroy"
+        ],
+        correct:"Take care of"
+    },
+
+    {
+        word:"figure out",
+        choices:[
+            "Understand or solve",
+            "Throw away",
+            "Sleep",
+            "Hide",
+            "Buy"
+        ],
+        correct:"Understand or solve"
+    },
+
+    {
+        word:"put off",
+        choices:[
+            "Postpone",
+            "Wear",
+            "Finish",
+            "Find",
+            "Invite"
+        ],
+        correct:"Postpone"
+    },
+
+    {
+        word:"run into",
+        choices:[
+            "Meet unexpectedly",
+            "Run quickly",
+            "Avoid",
+            "Help",
+            "Follow"
+        ],
+        correct:"Meet unexpectedly"
+    }
+
+];
+
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+let bgmPlaying = false;
+let audioContext = null;
+let bgmInterval = null;
+
+
+/* =========================
+   START
+========================= */
+
+function startGame() {
+
+    document.getElementById("startScreen").style.display="none";
+
+    document.getElementById("gameScreen").style.display="block";
+
+    currentQuestion=0;
+    score=0;
+
+    updateScore();
+
+    loadQuestion();
+
+    startBGM();
+
+    setTimeout(speakWord,500);
+}
+
+
+/* =========================
+   LOAD
+========================= */
+
+function loadQuestion() {
+
+    answered=false;
+
+    const q=questions[currentQuestion];
+
+    document.getElementById("questionNumber").innerText=
+        "Question "+(currentQuestion+1);
+
+    document.getElementById("progressText").innerText=
+        "Question "+(currentQuestion+1)+" / "+questions.length;
+
+    document.getElementById("word").innerText=q.word;
+
+    document.getElementById("feedback").innerText="";
+
+    document.getElementById("progress").style.width=
+        (currentQuestion/questions.length*100)+"%";
+
+
+    const box=document.getElementById("answers");
+
+    box.innerHTML="";
+
+
+    q.choices.forEach(function(choice){
+
+        const button=document.createElement("button");
+
+        button.className="answer";
+
+        button.innerText=choice;
+
+        button.onclick=function(){
+
+            checkAnswer(choice,button);
+
+        };
+
+        box.appendChild(button);
+
+    });
+
+}
+
+
+/* =========================
+   ANSWER
+========================= */
+
+function checkAnswer(selected,button){
+
+    if(answered) return;
+
+    const q=questions[currentQuestion];
+
+
+    if(selected===q.correct){
+
+        answered=true;
+
+        button.classList.add("correct");
+
+        score++;
+
+        updateScore();
+
+        document.getElementById("feedback").innerText=
+            "🎉 Correct! You got a new outfit!";
+
+
+        celebrate();
+
+
+        /* Give clothes */
+
+        giveClothes(currentQuestion);
+
+
+        /* pronunciation */
+
+        setTimeout(function(){
+
+            speakWord();
+
+        },300);
+
+
+        setTimeout(function(){
+
+            currentQuestion++;
+
+            if(currentQuestion<questions.length){
+
+                loadQuestion();
+
+            }else{
+
+                finishGame();
+
+            }
+
+        },1900);
+
+
+    }else{
+
+        button.classList.add("wrong");
+
+        document.getElementById("feedback").innerText=
+            "💭 Try again!";
+
+        setTimeout(function(){
+
+            button.classList.remove("wrong");
+
+        },700);
+
+    }
+
+}
+
+
+/* =========================
+   CLOTHES
+========================= */
+
+function giveClothes(index){
+
+    const items=[
+        "shirt",
+        "skirt",
+        "shoes",
+        "hat",
+        "glasses"
+    ];
+
+    const item=document.getElementById(items[index]);
+
+    if(!item) return;
+
+    item.style.display="block";
+
+    item.classList.remove("appear");
+
+    void item.offsetWidth;
+
+    item.classList.add("appear");
+
+
+    /* Extra scarf and bag later */
+
+    if(index===2){
+
+        setTimeout(function(){
+
+            const scarf=document.getElementById("scarf");
+
+            scarf.style.display="block";
+
+            scarf.classList.add("appear");
+
+        },250);
+
+    }
+
+    if(index===4){
+
+        setTimeout(function(){
+
+            const bag=document.getElementById("bag");
+
+            bag.style.display="block";
+
+            bag.classList.add("appear");
+
+        },250);
+
+    }
+
+}
+
+
+/* =========================
+   SPEECH
+========================= */
+
+function speakWord(){
+
+    if(!("speechSynthesis" in window)){
+
+        alert(
+            "Text-to-speech is not supported in this browser."
+        );
+
+        return;
+
+    }
+
+    speechSynthesis.cancel();
+
+    const speech=
+        new SpeechSynthesisUtterance(
+            questions[currentQuestion].word
+        );
+
+    speech.lang="en-US";
+
+    speech.rate=.8;
+
+    speech.pitch=1.12;
+
+    speech.volume=1;
+
+    speechSynthesis.speak(speech);
+
+}
+
+
+/* =========================
+   SCORE
+========================= */
+
+function updateScore(){
+
+    document.getElementById("score").innerText=
+        "⭐ "+score;
+
+}
+
+
+/* =========================
+   EFFECT
+========================= */
+
+function celebrate(){
+
+    const emojis=[
+        "✨",
+        "⭐",
+        "💗",
+        "🌸",
+        "🎀",
+        "💫",
+        "🩷"
+    ];
+
+
+    for(let i=0;i<18;i++){
+
+        const el=document.createElement("div");
+
+        el.className="effect";
+
+        el.innerText=
+            emojis[
+                Math.floor(
+                    Math.random()*emojis.length
+                )
+            ];
+
+
+        el.style.left=
+            "50vw";
+
+        el.style.top=
+            "50vh";
+
+
+        el.style.setProperty(
+            "--x",
+            (Math.random()*500-250)+"px"
+        );
+
+        el.style.setProperty(
+            "--y",
+            (Math.random()*500-250)+"px"
+        );
+
+
+        document.body.appendChild(el);
+
+
+        setTimeout(function(){
+
+            el.remove();
+
+        },1200);
+
+    }
+
+}
+
+
+/* =========================
+   BGM
+========================= */
+
+function startBGM(){
+
+    if(bgmPlaying) return;
+
+    audioContext=
+        new(
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
+    const notes=[
+        523.25,
+        659.25,
+        783.99,
+        659.25,
+        587.33,
+        698.46,
+        880,
+        698.46
+    ];
+
+    let i=0;
+
+    bgmPlaying=true;
+
+    bgmInterval=setInterval(function(){
+
+        if(!bgmPlaying) return;
+
+        const oscillator=
+            audioContext.createOscillator();
+
+        const gain=
+            audioContext.createGain();
+
+        oscillator.type="sine";
+
+        oscillator.frequency.value=
+            notes[i%notes.length];
+
+        gain.gain.setValueAtTime(
+            .025,
+            audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            audioContext.currentTime+.3
+        );
+
+        oscillator.connect(gain);
+
+        gain.connect(
+            audioContext.destination
+        );
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime+.3
+        );
+
+        i++;
+
+    },350);
+
+}
+
+
+/* =========================
+   BGM TOGGLE
+========================= */
+
+function toggleBGM(){
+
+    if(!audioContext){
+
+        startBGM();
+
+        return;
+
+    }
+
+
+    if(bgmPlaying){
+
+        bgmPlaying=false;
+
+        document.getElementById("bgmButton").innerText=
+            "🔇 BGM OFF";
+
+    }else{
+
+        bgmPlaying=true;
+
+        document.getElementById("bgmButton").innerText=
+            "🎵 BGM ON";
+
+        if(audioContext.state==="suspended"){
+
+            audioContext.resume();
+
+        }
+
+    }
+
+}
+
+
+/* =========================
+   FINISH
+========================= */
+
+function finishGame(){
+
+    document.getElementById("gameScreen").style.display=
+        "none";
+
+    document.getElementById("endScreen").style.display=
+        "flex";
+
+    document.getElementById("finalScore").innerText=
+        "You got "+score+" / "+questions.length+"!";
+
+}
+
+
+/* =========================
+   RESTART
+========================= */
+
+function restartGame(){
+
+    speechSynthesis.cancel();
+
+    document.getElementById("endScreen").style.display=
+        "none";
+
+    document.getElementById("startScreen").style.display=
+        "flex";
+
+
+    document.querySelectorAll(".clothes").forEach(
+        function(item){
+
+            item.style.display="none";
+
+            item.classList.remove("appear");
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>
