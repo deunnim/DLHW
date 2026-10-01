@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Cute English Closet</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Baloo 2", "Arial Rounded MT Bold", sans-serif;
+    background:
+        radial-gradient(circle at 10% 15%, #fff4a8 0 5%, transparent 6%),
+        radial-gradient(circle at 90% 20%, #ffd9e9 0 5%, transparent 6%),
+        linear-gradient(135deg, #dff8ff, #fff0f8, #fff9dc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #51495d;
+    overflow-x: hidden;
+}
+
+.floating {
+    position: fixed;
+    font-size: 28px;
+    opacity: .65;
+    animation: float 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.f1 { top: 8%; left: 7%; }
+.f2 { top: 14%; right: 8%; animation-delay: 1s; }
+.f3 { bottom: 10%; left: 8%; animation-delay: 2s; }
+.f4 { bottom: 13%; right: 7%; animation-delay: .5s; }
+
+@keyframes float {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-12px) rotate(7deg); }
+}
+
+.game {
+    width: min(1000px, 94vw);
+    min-height: 650px;
+    background: rgba(255,255,255,.94);
+    border-radius: 40px;
+    padding: 28px;
+    box-shadow: 0 25px 60px rgba(100,80,120,.18);
+    position: relative;
+}
+
+/* START */
+
+.start-screen {
+    min-height: 590px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.start-screen h1 {
+    font-size: 48px;
+    margin: 5px 0;
+    color: #7164ad;
+}
+
+.start-screen p {
+    font-size: 20px;
+    margin: 5px 0 25px;
+}
+
+.start-bunny {
+    font-size: 130px;
+    animation: bunnyJump 1.8s ease-in-out infinite;
+}
+
+@keyframes bunnyJump {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.start-btn,
+.restart-btn {
+    border: none;
+    padding: 15px 35px;
+    border-radius: 25px;
+    background: linear-gradient(135deg,#ff9fc8,#a99af7);
+    color: white;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(150,120,180,.25);
+    transition: .2s;
+}
+
+.start-btn:hover,
+.restart-btn:hover {
+    transform: translateY(-3px) scale(1.04);
+}
+
+/* GAME */
+
+#gameScreen {
+    display: none;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 800;
+    color: #7164ad;
+}
+
+.score {
+    background: #fff1a8;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 800;
+}
+
+.progress-area {
+    margin: 18px 0 24px;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.progress-bar {
+    height: 13px;
+    background: #eeeaf5;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg,#ff9fc7,#a99af7);
+    transition: .5s;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    gap: 20px;
+}
+
+/* CHARACTER */
+
+.character-area {
+    min-height: 490px;
+    background:
+        radial-gradient(circle at 50% 20%, white 0 15%, transparent 16%),
+        linear-gradient(180deg,#f6f0ff,#e8faff);
+    border-radius: 32px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.character-area::after {
+    content: "";
+    position: absolute;
+    bottom: 38px;
+    width: 230px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(120,100,150,.14);
+}
+
+.bunny {
+    width: 230px;
+    height: 400px;
+    position: relative;
+    z-index: 2;
+    animation: bunnyFloat 3s ease-in-out infinite;
+}
+
+@keyframes bunnyFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* ears */
+
+.ear {
+    position: absolute;
+    width: 63px;
+    height: 135px;
+    background: #fffdfd;
+    border: 4px solid #d8d0da;
+    border-radius: 45px;
+    top: 5px;
+    z-index: 1;
+}
+
+.ear.left {
+    left: 42px;
+    transform: rotate(-8deg);
+}
+
+.ear.right {
+    right: 42px;
+    transform: rotate(8deg);
+}
+
+.ear::after {
+    content: "";
+    position: absolute;
+    width: 29px;
+    height: 98px;
+    left: 13px;
+    top: 15px;
+    border-radius: 30px;
+    background: #ffcddd;
+}
+
+/* head */
+
+.head {
+    position: absolute;
+    width: 178px;
+    height: 165px;
+    left: 26px;
+    top: 70px;
+    background: #fffdfd;
+    border: 4px solid #d8d0da;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+/* face */
+
+.eye {
+    position: absolute;
+    width: 15px;
+    height: 22px;
+    background: #4b4451;
+    border-radius: 50%;
+    top: 68px;
+}
+
+.eye.left { left: 48px; }
+.eye.right { right: 48px; }
+
+.eye::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 7px;
+    background: white;
+    border-radius: 50%;
+    left: 3px;
+    top: 3px;
+}
+
+.cheek {
+    position: absolute;
+    width: 29px;
+    height: 15px;
+    background: #ffc9d9;
+    border-radius: 50%;
+    top: 95px;
+    opacity: .7;
+}
+
+.cheek.left { left: 25px; }
+.cheek.right { right: 25px; }
+
+.nose {
+    position: absolute;
+    left: 80px;
+    top: 91px;
+    width: 17px;
+    height: 12px;
+    background: #e99db6;
+    border-radius: 50% 50% 60% 60%;
+}
+
+.mouth {
+    position: absolute;
+    left: 78px;
+    top: 103px;
+    width: 22px;
+    height: 13px;
+    border-bottom: 3px solid #777;
+    border-radius: 50%;
+}
+
+/* body */
+
+.body {
+    position: absolute;
+    width: 145px;
+    height: 175px;
+    left: 43px;
+    top: 220px;
+    background: #fffdfd;
+    border: 4px solid #d8d0da;
+    border-radius: 70px 70px 55px 55px;
+    z-index: 2;
+}
+
+/* arms */
+
+.arm {
+    position: absolute;
+    width: 43px;
+    height: 100px;
+    background: #fffdfd;
+    border: 4px solid #d8d0da;
+    border-radius: 30px;
+    top: 245px;
+    z-index: 1;
+}
+
+.arm.left {
+    left: 25px;
+    transform: rotate(13deg);
+}
+
+.arm.right {
+    right: 25px;
+    transform: rotate(-13deg);
+}
+
+/* feet */
+
+.foot {
+    position: absolute;
+    width: 65px;
+    height: 43px;
+    background: #fffdfd;
+    border: 4px solid #d8d0da;
+    border-radius: 50%;
+    top: 365px;
+    z-index: 3;
+}
+
+.foot.left { left: 38px; }
+.foot.right { right: 38px; }
+
+/* CLOTHES */
+
+.clothes {
+    display: none;
+}
+
+/* shirt */
+
+.shirt {
+    position: absolute;
+    width: 130px;
+    height: 100px;
+    left: 50px;
+    top: 235px;
+    background: #a8d8ff;
+    border-radius: 35px 35px 45px 45px;
+    z-index: 4;
+    border: 3px solid #82bce9;
+}
+
+.shirt::before {
+    content: "";
+    position: absolute;
+    width: 43px;
+    height: 22px;
+    left: 40px;
+    top: -7px;
+    background: #8fc7f0;
+    border-radius: 50%;
+}
+
+/* skirt */
+
+.skirt {
+    position: absolute;
+    width: 155px;
+    height: 70px;
+    left: 38px;
+    top: 315px;
+    background: #f5a7c8;
+    border-radius: 20px 20px 55px 55px;
+    z-index: 5;
+    border: 3px solid #e48caf;
+}
+
+.skirt::after {
+    content: "♡  ♡  ♡";
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 25px;
+    color: white;
+    font-size: 17px;
+}
+
+/* hat */
+
+.hat {
+    position: absolute;
+    display: none;
+    z-index: 7;
+}
+
+.hat-top {
+    position: absolute;
+    width: 78px;
+    height: 62px;
+    background: #9c8be8;
+    border-radius: 45px 45px 12px 12px;
+    left: 48px;
+    top: 45px;
+    transform: rotate(-5deg);
+}
+
+.hat-brim {
+    position: absolute;
+    width: 120px;
+    height: 22px;
+    background: #8875d4;
+    border-radius: 50%;
+    left: 27px;
+    top: 96px;
+}
+
+/* glasses */
+
+.glasses {
+    display: none;
+    position: absolute;
+    z-index: 8;
+    top: 132px;
+    left: 42px;
+}
+
+.glass {
+    width: 52px;
+    height: 34px;
+    border: 4px solid #665d72;
+    border-radius: 15px;
+    position: absolute;
+}
+
+.glass.right {
+    left: 58px;
+}
+
+.glass-line {
+    position: absolute;
+    width: 18px;
+    height: 4px;
+    background: #665d72;
+    left: 49px;
+    top: 15px;
+}
+
+/* scarf */
+
+.scarf {
+    display: none;
+    position: absolute;
+    width: 145px;
+    height: 30px;
+    left: 43px;
+    top: 205px;
+    background: #ffd86e;
+    border-radius: 15px;
+    z-index: 9;
+}
+
+.scarf-tail {
+    position: absolute;
+    width: 38px;
+    height: 70px;
+    background: #ffd86e;
+    left: 113px;
+    top: 20px;
+    transform: rotate(10deg);
+    border-radius: 5px 5px 20px 20px;
+}
+
+/* bag */
+
+.bag {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    width: 58px;
+    height: 65px;
+    right: 10px;
+    top: 270px;
+    background: #c89b75;
+    border-radius: 12px 12px 18px 18px;
+    border: 3px solid #aa7b57;
+}
+
+.bag::before {
+    content: "";
+    position: absolute;
+    width: 38px;
+    height: 28px;
+    border: 4px solid #aa7b57;
+    border-bottom: none;
+    border-radius: 30px 30px 0 0;
+    left: 7px;
+    top: -24px;
+}
+
+
+/* QUIZ */
+
+.quiz {
+    padding: 15px;
+}
+
+.question-number {
+    display: inline-block;
+    background: #eee8ff;
+    color: #7164ad;
+    border-radius: 15px;
+    padding: 5px 13px;
+    font-weight: 800;
+}
+
+.word {
+    font-size: 42px;
+    color: #66599b;
+    margin: 15px 0 3px;
+}
+
+.pronounce {
+    border: none;
+    background: #fff0a8;
+    color: #756128;
+    padding: 7px 14px;
+    border-radius: 15px;
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.meaning {
+    font-size: 17px;
+    margin: 10px 0 20px;
+}
+
+.answers {
+    display: grid;
+    gap: 11px;
+}
+
+.answer {
+    border: none;
+    background: #f7f5fb;
+    border-radius: 18px;
+    padding: 14px;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 700;
+    color: #5b5365;
+    cursor: pointer;
+    text-align: left;
+    transition: .18s;
+    border: 2px solid transparent;
+}
+
+.answer:hover {
+    background: #fff1f8;
+    border-color: #ffb6d2;
+    transform: translateX(4px);
+}
+
+.answer.correct {
+    background: #d8f7d5;
+    border-color: #7acb78;
+}
+
+.answer.wrong {
+    background: #ffe0e0;
+    border-color: #ee9292;
+}
+
+.feedback {
+    height: 45px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.sound-btn {
+    margin-top: 8px;
+    border: none;
+    background: #e9e3ff;
+    border-radius: 16px;
+    padding: 7px 13px;
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.bgm-btn {
+    position: absolute;
+    right: 28px;
+    bottom: 20px;
+    border: none;
+    border-radius: 18px;
+    padding: 8px 15px;
+    background: #eee9ff;
+    color: #655b92;
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+
+/* EFFECT */
+
+.effect {
+    position: fixed;
+    pointer-events: none;
+    font-size: 35px;
+    animation: pop 1s ease-out forwards;
+    z-index: 100;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(.3) translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5) translateY(-120px);
+        opacity: 0;
+    }
+}
+
+
+/* END */
+
+.end-screen {
+    display: none;
+    min-height: 590px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.end-screen h1 {
+    color: #7164ad;
+    font-size: 43px;
+}
+
+.final-character {
+    font-size: 110px;
+}
+
+.final-score {
+    font-size: 25px;
+    margin: 10px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:750px) {
+
+    .game {
+        padding: 18px;
+    }
+
+    .main {
+        grid-template-columns: 1fr;
+    }
+
+    .character-area {
+        min-height: 380px;
+    }
+
+    .word {
+        font-size: 34px;
+    }
+
+    .start-screen h1 {
+        font-size: 36px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="floating f1">⭐</div>
+<div class="floating f2">💗</div>
+<div class="floating f3">✨</div>
+<div class="floating f4">🌸</div>
+
+
+<div class="game">
+
+<!-- START -->
+
+<div class="start-screen" id="startScreen">
+
+    <div class="start-bunny">🐰</div>
+
+    <h1>My Cute English Closet</h1>
+
+    <p>
+        Learn English words and dress up your bunny! 🌸
+    </p>
+
+    <p>
+        🔊 Listen • 💡 Choose • 👗 Dress up
+    </p>
+
+    <button class="start-btn" onclick="startGame()">
+        START GAME ✨
+    </button>
+
+</div>
+
+
+<!-- GAME -->
+
+<div id="gameScreen">
+
+    <div class="header">
+
+        <div class="logo">
+            🐰 My English Closet
+        </div>
+
+        <div class="score" id="score">
+            ⭐ 0
+        </div>
+
+    </div>
+
+
+    <div class="progress-area">
+
+        <div class="progress-text">
+            <span id="progressText">
+                Question 1 / 5
+            </span>
+
+            <span>
+                👗 Dress Up!
+            </span>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+    </div>
+
+
+    <div class="main">
+
+
+        <!-- CHARACTER -->
+
+        <div class="character-area">
+
+            <div class="bunny">
+
+                <div class="ear left"></div>
+                <div class="ear right"></div>
+
+                <div class="head">
+
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+
+                    <div class="cheek left"></div>
+                    <div class="cheek right"></div>
+
+                    <div class="nose"></div>
+                    <div class="mouth"></div>
+
+                </div>
+
+
+                <div class="arm left"></div>
+                <div class="arm right"></div>
+
+                <div class="body"></div>
+
+                <div class="foot left"></div>
+                <div class="foot right"></div>
+
+
+                <!-- CLOTHES -->
+
+                <div class="shirt clothes" id="shirt"></div>
+
+                <div class="skirt clothes" id="skirt"></div>
+
+                <div class="hat clothes" id="hat">
+                    <div class="hat-top"></div>
+                    <div class="hat-brim"></div>
+                </div>
+
+                <div class="glasses clothes" id="glasses">
+                    <div class="glass"></div>
+                    <div class="glass right"></div>
+                    <div class="glass-line"></div>
+                </div>
+
+                <div class="scarf clothes" id="scarf">
+                    <div class="scarf-tail"></div>
+                </div>
+
+                <div class="bag clothes" id="bag"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUIZ -->
+
+        <div class="quiz">
+
+            <div class="question-number" id="questionNumber">
+                Question 1
+            </div>
+
+            <div class="word" id="word">
+                give up
+            </div>
+
+            <button class="pronounce" onclick="speakWord()">
+                🔊 Hear the word
+            </button>
+
+            <div class="meaning">
+                What does this expression mean?
+            </div>
+
+            <div class="answers" id="answers"></div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <button class="sound-btn" onclick="speakWord()">
+                🔊 Listen again
+            </button>
+
+        </div>
+
+    </div>
+
+    <button class="bgm-btn" id="bgmButton" onclick="toggleBGM()">
+        🎵 BGM ON
+    </button>
+
+</div>
+
+
+<!-- END -->
+
+<div class="end-screen" id="endScreen">
+
+    <div class="final-character">
+        🐰✨👗🎀
+    </div>
+
+    <h1>Beautiful!</h1>
+
+    <div class="final-score" id="finalScore">
+        You got 5 / 5!
+    </div>
+
+    <p>
+        Your bunny is ready for a fashion show! 💕
+    </p>
+
+    <button class="restart-btn" onclick="restartGame()">
+        PLAY AGAIN 🌸
+    </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   QUESTIONS
+========================= */
+
+const questions = [
+
+    {
+        word: "give up",
+        choices: [
+            "Quit",
+            "Start",
+            "Carry",
+            "Remember",
+            "Choose"
+        ],
+        correct: "Quit"
+    },
+
+    {
+        word: "look after",
+        choices: [
+            "Take care of",
+            "Look at",
+            "Run away",
+            "Forget",
+            "Destroy"
+        ],
+        correct: "Take care of"
+    },
+
+    {
+        word: "figure out",
+        choices: [
+            "Understand or solve",
+            "Throw away",
+            "Sleep",
+            "Hide",
+            "Buy"
+        ],
+        correct: "Understand or solve"
+    },
+
+    {
+        word: "put off",
+        choices: [
+            "Postpone",
+            "Wear",
+            "Finish",
+            "Find",
+            "Invite"
+        ],
+        correct: "Postpone"
+    },
+
+    {
+        word: "run into",
+        choices: [
+            "Meet unexpectedly",
+            "Run quickly",
+            "Avoid",
+            "Help",
+            "Follow"
+        ],
+        correct: "Meet unexpectedly"
+    }
+
+];
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+let bgmPlaying = false;
+
+let audioContext;
+let bgmInterval;
+
+
+/* =========================
+   START GAME
+========================= */
+
+function startGame() {
+
+    document.getElementById("startScreen").style.display = "none";
+
+    document.getElementById("gameScreen").style.display = "block";
+
+    currentQuestion = 0;
+    score = 0;
+
+    updateScore();
+
+    loadQuestion();
+
+    startBGM();
+
+    setTimeout(function() {
+        speakWord();
+    }, 500);
+}
+
+
+/* =========================
+   LOAD QUESTION
+========================= */
+
+function loadQuestion() {
+
+    answered = false;
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("questionNumber").innerText =
+        "Question " + (currentQuestion + 1);
+
+    document.getElementById("progressText").innerText =
+        "Question " + (currentQuestion + 1) + " / " + questions.length;
+
+    document.getElementById("word").innerText =
+        q.word;
+
+    document.getElementById("feedback").innerText = "";
+
+    document.getElementById("progress").style.width =
+        ((currentQuestion) / questions.length * 100) + "%";
+
+
+    const answerBox =
+        document.getElementById("answers");
+
+    answerBox.innerHTML = "";
+
+
+    q.choices.forEach(function(choice) {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "answer";
+
+        button.innerText = choice;
+
+        button.onclick = function() {
+            checkAnswer(choice, button);
+        };
+
+        answerBox.appendChild(button);
+
+    });
+
+}
+
+
+/* =========================
+   CHECK ANSWER
+========================= */
+
+function checkAnswer(selected, button) {
+
+    if (answered) return;
+
+    const q = questions[currentQuestion];
+
+    if (selected === q.correct) {
+
+        answered = true;
+
+        button.classList.add("correct");
+
+        score++;
+
+        updateScore();
+
+        document.getElementById("feedback").innerText =
+            "🎉 Correct! Great job!";
+
+        celebrate();
+
+        giveClothes(currentQuestion);
+
+        /* SPEAK WORD */
+
+        setTimeout(function() {
+            speakWord();
+        }, 300);
+
+
+        setTimeout(function() {
+
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+
+                loadQuestion();
+
+            } else {
+
+                finishGame();
+
+            }
+
+        }, 1900);
+
+
+    } else {
+
+        button.classList.add("wrong");
+
+        document.getElementById("feedback").innerText =
+            "💭 Try again!";
+
+        setTimeout(function() {
+            button.classList.remove("wrong");
+        }, 700);
+
+    }
+
+}
+
+
+/* =========================
+   SPEECH SYNTHESIS
+========================= */
+
+function speakWord() {
+
+    if (!("speechSynthesis" in window)) {
+
+        alert(
+            "Your browser does not support text-to-speech."
+        );
+
+        return;
+    }
+
+    const word =
+        questions[currentQuestion].word;
+
+    window.speechSynthesis.cancel();
+
+    const speech =
+        new SpeechSynthesisUtterance(word);
+
+    speech.lang = "en-US";
+
+    speech.rate = 0.82;
+
+    speech.pitch = 1.15;
+
+    speech.volume = 1;
+
+    window.speechSynthesis.speak(speech);
+}
+
+
+/* =========================
+   SCORE
+========================= */
+
+function updateScore() {
+
+    document.getElementById("score").innerText =
+        "⭐ " + score;
+
+}
+
+
+/* =========================
+   CLOTHES
+========================= */
+
+function giveClothes(index) {
+
+    const items = [
+        "shirt",
+        "skirt",
+        "hat",
+        "glasses",
+        "scarf"
+    ];
+
+    const item =
+        document.getElementById(items[index]);
+
+    if (item) {
+
+        item.style.display = "block";
+
+        item.animate(
+            [
+                {
+                    transform: "scale(.5) rotate(-15deg)",
+                    opacity: 0
+                },
+                {
+                    transform: "scale(1.15) rotate(5deg)",
+                    opacity: 1
+                },
+                {
+                    transform: "scale(1) rotate(0)",
+                    opacity: 1
+                }
+            ],
+            {
+                duration: 700,
+                easing: "cubic-bezier(.2,1.4,.4,1)"
+            }
+        );
+
+    }
+}
+
+
+/* =========================
+   CORRECT EFFECT
+========================= */
+
+function celebrate() {
+
+    const emojis = [
+        "✨",
+        "⭐",
+        "💗",
+        "🌸",
+        "🎀",
+        "💫"
+    ];
+
+    for (let i = 0; i < 14; i++) {
+
+        const effect =
+            document.createElement("div");
+
+        effect.className = "effect";
+
+        effect.innerText =
+            emojis[Math.floor(Math.random() * emojis.length)];
+
+        effect.style.left =
+            Math.random() * 100 + "vw";
+
+        effect.style.top =
+            (45 + Math.random() * 30) + "vh";
+
+        effect.style.animationDuration =
+            (.7 + Math.random() * .7) + "s";
+
+        document.body.appendChild(effect);
+
+        setTimeout(function() {
+            effect.remove();
+        }, 1500);
+    }
+}
+
+
+/* =========================
+   CUTE BGM
+========================= */
+
+function startBGM() {
+
+    if (bgmPlaying) return;
+
+    audioContext =
+        new (window.AudioContext ||
+        window.webkitAudioContext)();
+
+    const notes = [
+        523.25,
+        659.25,
+        783.99,
+        659.25,
+        587.33,
+        698.46,
+        880.00,
+        698.46
+    ];
+
+    let i = 0;
+
+    bgmPlaying = true;
+
+    document.getElementById("bgmButton").innerText =
+        "🎵 BGM ON";
+
+
+    bgmInterval = setInterval(function() {
+
+        if (!bgmPlaying) return;
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.value =
+            notes[i % notes.length];
+
+        gain.gain.setValueAtTime(
+            0.025,
+            audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioContext.currentTime + .32
+        );
+
+        oscillator.connect(gain);
+
+        gain.connect(
+            audioContext.destination
+        );
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime + .32
+        );
+
+        i++;
+
+    }, 360);
+}
+
+
+/* =========================
+   BGM ON / OFF
+========================= */
+
+function toggleBGM() {
+
+    if (!audioContext) {
+        startBGM();
+        return;
+    }
+
+    if (bgmPlaying) {
+
+        bgmPlaying = false;
+
+        document.getElementById("bgmButton").innerText =
+            "🔇 BGM OFF";
+
+    } else {
+
+        bgmPlaying = true;
+
+        document.getElementById("bgmButton").innerText =
+            "🎵 BGM ON";
+
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
+
+    }
+
+}
+
+
+/* =========================
+   FINISH
+========================= */
+
+function finishGame() {
+
+    document.getElementById("gameScreen").style.display =
+        "none";
+
+    document.getElementById("endScreen").style.display =
+        "flex";
+
+    document.getElementById("finalScore").innerText =
+        "You got " + score + " / " + questions.length + "!";
+
+    document.getElementById("progress").style.width =
+        "100%";
+
+}
+
+
+/* =========================
+   RESTART
+========================= */
+
+function restartGame() {
+
+    document.getElementById("endScreen").style.display =
+        "none";
+
+    document.getElementById("startScreen").style.display =
+        "flex";
+
+
+    document.querySelectorAll(".clothes").forEach(function(item) {
+
+        item.style.display = "none";
+
+    });
+
+    window.speechSynthesis.cancel();
+
+}
+
+</script>
+
+</body>
+</html>
